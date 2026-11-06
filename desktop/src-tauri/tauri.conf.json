@@ -25,6 +25,10 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "icons": [
+      { "path": "icons/icon.png", "theme": "light" },
+      { "path": "icons/icon.ico", "platforms": ["windows"] }
+    ],
     "resources": [],
     "externalBin": [],
     "copyright": "Copyright © 2026 Nexus",
