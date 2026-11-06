@@ -31,14 +31,10 @@
     "category": "DeveloperTool",
     "shortDescription": "Wrap websites and manage projects/files on your desktop",
     "longDescription": "Nexus Desktop turns any website into a desktop app and gives you a real-time file/project manager with full CRUD over your root folder and its projects.",
-    "linux": {
-      "icon": "icons/icon.png"
-    },
     "windows": {
       "certificateThumbprint": null,
       "digestAlgorithm": "sha256",
-      "timestampUrl": "",
-      "icon": "icons/icon.ico"
+      "timestampUrl": ""
     }
   }
 }
