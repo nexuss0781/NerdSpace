@@ -52,7 +52,7 @@ jobs:
 
       - name: Build self-contained desktop bundle
         run: cargo tauri build
-        working-directory: desktop
+        working-directory: desktop/src-tauri
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
