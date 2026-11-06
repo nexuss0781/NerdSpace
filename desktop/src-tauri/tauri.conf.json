@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "identifier": "com.nexus.desktop",
   "build": {
-    "frontendDist": "./dist",
+    "frontendDist": "../dist",
     "devUrl": "http://localhost:5173",
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build"
