@@ -1,0 +1,12 @@
+{
+  "identifier": "default",
+  "description": "Default capability set for Nexus Desktop",
+  "permissions": [
+    "core:default",
+    "dialog:allow-open",
+    "window:allow-create",
+    "webview:allow-create",
+    "webview:allow-navigate",
+    "shell:allow-open"
+  ]
+}

@@ -1,0 +1,91 @@
+name: Build Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runs-on: ubuntu-latest
+            artifact: nexus-desktop-linux
+          - runs-on: windows-latest
+            artifact: nexus-desktop-windows
+          - runs-on: macos-latest
+            artifact: nexus-desktop-macos
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: desktop/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm install
+        working-directory: desktop
+
+      - name: Build frontend (Vite) into dist/
+        run: npm run build
+        working-directory: desktop
+
+      - name: Install Linux system libraries (WebKitGTK for Tauri webview)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
+
+      - name: Install Tauri CLI v2
+        run: cargo install tauri-cli --version 2 --force
+
+      - name: Build self-contained desktop bundle
+        run: cargo tauri build
+        working-directory: desktop
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+
+      - name: Upload bundle artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: desktop/src-tauri/target/release/bundle/**/*
+          retention-days: 7
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download all platform bundles
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artifacts
+          merge-multiple: true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release-artifacts/**
+          draft: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

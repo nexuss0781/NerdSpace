@@ -106,6 +106,12 @@ temp/
 *.sqlite
 *.sqlite3
 
+# Desktop (Tauri) build outputs
+desktop/node_modules/
+desktop/dist/
+desktop/src-tauri/target/
+desktop/target/
+
 # Webdev artifacts (checkpoint zips, migrations, etc.)
 .webdev/
 
