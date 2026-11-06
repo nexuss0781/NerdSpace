@@ -74,7 +74,7 @@ export default class App {
     }
   }
 
-  setupFsListeners() {
+  async setupFsListeners() {
     this.unlistenFs = await onFsChange(() => {
       // Real-time: refresh whatever is currently open.
       this.refreshCurrentView()
