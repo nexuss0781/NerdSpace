@@ -1,3 +1,1 @@
-fn main() {
-    tauri_build::init();
-}
+fn main() {}
