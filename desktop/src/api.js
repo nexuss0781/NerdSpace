@@ -1,4 +1,5 @@
-import { invoke, listen } from '@tauri-apps/api/core'
+import { invoke } from '@tauri-apps/api/core'
+import { listen } from '@tauri-apps/api/event'
 
 export const getSettings = () => invoke('get_settings')
 export const selectRootFolder = () => invoke('select_root_folder')
