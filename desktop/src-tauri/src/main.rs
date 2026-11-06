@@ -388,17 +388,15 @@ fn start_watching(app: AppHandle, state: State<'_, AppState>) -> Result<(), Stri
     std::thread::spawn(move || {
         while let Ok(res) = rx.recv() {
             match res {
-                Ok(events) => {
+                Ok(event) => {
                     let mut paths: Vec<String> = Vec::new();
                     let mut kind = "other".to_string();
-                    for e in &events {
-                        for p in &e.paths {
-                            paths.push(p.to_string_lossy().to_string());
-                        }
+                    for p in &event.paths {
+                        paths.push(p.to_string_lossy().to_string());
                     }
                     if !paths.is_empty() {
                         // heuristically label the change kind
-                        if events.iter().any(|e| !e.kind.is_modify()) {
+                        if !event.kind.is_modify() {
                             kind = "change".to_string();
                         }
                         let _ = app_clone.emit(
