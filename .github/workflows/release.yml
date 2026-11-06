@@ -48,7 +48,7 @@ jobs:
           sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
 
       - name: Install Tauri CLI v2
-        run: cargo install tauri-cli --version 2.0.0 --force
+        run: cargo install tauri-cli --force
 
       - name: Build self-contained desktop bundle
         run: cargo tauri build
