@@ -7,6 +7,7 @@ use std::sync::Mutex;
 use std::time::SystemTime;
 
 use serde::{Deserialize, Serialize};
+use notify::Watcher;
 use tauri::{AppHandle, Emitter, Manager, State};
 use rfd::FileDialog;
 
@@ -56,10 +57,15 @@ pub struct AppState {
 /*  Path helpers                                                              */
 /* -------------------------------------------------------------------------- */
 
-fn config_dir(app: &AppHandle) -> Result<PathBuf, String> {
-    app.path_resolver()
-        .app_config_dir()
-        .ok_or_else(|| "could not resolve app config dir".to_string())
+fn config_dir(_app: &AppHandle) -> Result<PathBuf, String> {
+    let home = std::env::var("HOME")
+        .or_else(|_| std::env::var("USERPROFILE"))
+        .map_err(|_| "could not resolve home directory".to_string())?;
+    #[cfg(target_os = "macos")]
+    let suffix = "Library/Application Support/nexus-desktop";
+    #[cfg(not(target_os = "macos"))]
+    let suffix = ".config/nexus-desktop";
+    Ok(PathBuf::from(home).join(suffix))
 }
 
 fn app_dir(app: &AppHandle) -> Result<PathBuf, String> {
@@ -282,7 +288,7 @@ fn list_entries(dir_path: String) -> Result<Vec<FileEntry>, String> {
         entries.push(FileEntry {
             name,
             path: path.to_string_lossy().to_string(),
-            kind,
+            kind: kind.to_string(),
             size: meta.len(),
             modified,
         })
@@ -395,14 +401,14 @@ fn start_watching(app: AppHandle, state: State<'_, AppState>) -> Result<(), Stri
                         if events.iter().any(|e| !e.kind.is_modify()) {
                             kind = "change".to_string();
                         }
-                        let _ = app_clone.emit_all(
+                        let _ = app_clone.emit(
                             "fs-change",
                             FsChange { kind, paths },
                         );
                     }
                 }
                 Err(e) => {
-                    let _ = app_clone.emit_all("fs-error", e.to_string());
+                    let _ = app_clone.emit("fs-error", e.to_string());
                 }
             }
         }
