@@ -25,31 +25,16 @@
   "bundle": {
     "active": true,
     "targets": "all",
-    "identifier": "com.nexus.desktop",
     "resources": [],
     "externalBin": [],
     "copyright": "Copyright © 2026 Nexus",
     "category": "DeveloperTool",
     "shortDescription": "Wrap websites and manage projects/files on your desktop",
     "longDescription": "Nexus Desktop turns any website into a desktop app and gives you a real-time file/project manager with full CRUD over your root folder and its projects.",
-    "deb": {
-      "depends": []
-    },
-    "macos": {
-      "frameworks": [],
-      "exceptionDomain": "",
-      "signingIdentity": null,
-      "entitlements": "entitlements.plist",
-      "minorVersion": null,
-      "majorVersion": null,
-      "publishUrl": null
-    },
     "windows": {
       "certificateThumbprint": null,
       "digestAlgorithm": "sha256",
-      "timestampUrl": "",
-      "webviewInstallMode": "fixed",
-      "webviewVersion": ""
+      "timestampUrl": ""
     }
   }
 }
