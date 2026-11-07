@@ -1,6 +1,6 @@
 {
   "productName": "Nexus Desktop",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "identifier": "com.nexus.desktop",
   "build": {
     "frontendDist": "../dist",

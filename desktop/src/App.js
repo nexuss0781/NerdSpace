@@ -33,7 +33,7 @@ export default class App {
     this.unlistenFs = null
     this.toastTimer = null
     // Current desktop app version (kept in sync with desktop/tauri.conf.json).
-    this.CURRENT_VERSION = "0.1.1"
+    this.CURRENT_VERSION = "0.1.2"
     // Offline-first release monitor state, persisted in localStorage.
     this.releaseMonitor = {
       checking: false,
@@ -464,28 +464,48 @@ export default class App {
 
   renderSettings(root) {
     if (root) {
-      // already set but view stuck on settings
       return `
-        <div class="empty">
-          <p>Root folder already selected: <b>${this.escape(root)}</b></p>
-          <button class="btn" data-action="change-root">Choose a different folder</button>
+        <div class="onboarding">
+          <div class="onboarding-card">
+            <div class="onboarding-header">
+              <h2 class="onboarding-title">Nexus<span class="onboarding-accent">Desktop</span></h2>
+              <p class="onboarding-subtitle">Root folder already set</p>
+            </div>
+            <div class="onboarding-body">
+              <div class="onboarding-path">${this.escape(root)}</div>
+            </div>
+            <div class="onboarding-actions">
+              <button class="btn btn-ghost" data-action="change-root">Choose a different folder</button>
+              <button class="btn btn-primary" data-action="back-to-projects">Open Projects</button>
+            </div>
+          </div>
         </div>
       `
     }
     return `
-      <div class="panel">
-        <h2>Welcome to Nexus Desktop</h2>
-        <p>
-          First, select a <b>root folder</b> (for example <code>Desktop/Nex</b>).
-          Nexus will remember it for this computer and treat every subfolder as a
-          <b>project</b>. Folders inside a project are normal folders, not projects.
-        </p>
-        <div class="cta">
-          <button class="btn btn-primary" data-action="select-root">
-            Select Root Folder
-          </button>
+      <div class="onboarding">
+        <div class="onboarding-card">
+          <div class="onboarding-header">
+            <div class="onboarding-logo">N<span class="onboarding-accent">D</span></div>
+            <h2 class="onboarding-title">Welcome to Nexus Desktop</h2>
+            <p class="onboarding-subtitle">A clean, focused workspace for your coding projects.</p>
+          </div>
+          <div class="onboarding-body">
+            <div class="onboarding-step">
+              <span class="onboarding-step-number">01</span>
+              <span class="onboarding-step-text">Select a root folder</span>
+            </div>
+            <div class="onboarding-hint">
+              Every subfolder becomes a project. Open files, edit them, save changes — all in one focused workspace.
+            </div>
+          </div>
+          <div class="onboarding-actions">
+            <button class="btn btn-primary" data-action="select-root">Select Root Folder</button>
+          </div>
+          <div class="onboarding-footer">
+            <p class="onboarding-footer-text">No terminal. No AI. Just code.</p>
+          </div>
         </div>
-        <p class="muted">Existing folders under the root are imported as projects automatically.</p>
       </div>
     `
   }
