@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Nerd Space
+GenericName=Coding Workspace
+Comment=A focused coding workspace for your desktop
+Exec=nerd-space
+Icon=nerd-space
+Terminal=false
+Type=Application
+Categories=Development;TextEditor;IDE;
+Keywords=coding;editor;workspace;project;file;nerd;space;programming;text;editor;
+StartupWMClass=nerd-space
+MimeType=text/plain;text/x-python;text/javascript;text/html;text/css;
