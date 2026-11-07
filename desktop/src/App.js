@@ -44,6 +44,7 @@ export default class App {
       releaseNotes: null,
       error: null,
     }
+    this.projectSearchQuery = ''
     this.bindDelegation()
   }
 
@@ -512,10 +513,17 @@ export default class App {
 
 
   renderProjects(root) {
-    const projs = Object.entries(this.projects || {})
+    const allProjs = Object.entries(this.projects || {})
+    const query = (this.projectSearchQuery || '').toLowerCase()
+    const projs = query
+      ? allProjs.filter(([path, meta]) => meta.name.toLowerCase().includes(query))
+      : allProjs
     const hasRoot = !!root
     return `
       <div class="toolbar">
+        <div class="search-box">
+          <input type="text" id="project-search" placeholder="Search projects…" value="${this.escape(this.projectSearchQuery || '')}">
+        </div>
         <h2>Projects <span class="count">(${projs.length})</span></h2>
         <div class="toolbar-right">
           <button class="btn" data-action="new-project">+ New Project</button>
@@ -525,7 +533,7 @@ export default class App {
 
       <div class="projects-list">
         ${projs.length === 0
-          ? `<div class="empty"><p>No projects yet. Create one or wrap a website.</p></div>`
+          ? `<div class="empty"><p>${query ? 'No projects match your search.' : 'No projects yet. Create one or wrap a website.'}</p></div>`
           : projs
               .map(([path, meta]) => this.projectCard(path, meta))
               .join('')
