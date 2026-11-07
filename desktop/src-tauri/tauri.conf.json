@@ -31,12 +31,6 @@
     "copyright": "Copyright © 2026 Nerd Space",
     "category": "DeveloperTool",
     "shortDescription": "A focused coding workspace for your desktop",
-    "longDescription": "Nerd Space turns any folder into a desktop coding workspace with full CRUD over your root folder and its projects.",
-    "windows": {
-      "certificateThumbprint": null,
-      "digestAlgorithm": "sha256",
-      "timestampUrl": "",
-      "icon": "icons/icon.ico"
-    }
+    "longDescription": "Nerd Space turns any folder into a desktop coding workspace with full CRUD over your root folder and its projects."
   }
 }
