@@ -1,0 +1,9 @@
+[Desktop Entry]
+Categories=Development;
+Comment=A focused coding workspace for your desktop
+Exec=nerd-space
+StartupWMClass=nerd-space
+Icon=nerd-space
+Name=Nerd Space
+Terminal=false
+Type=Application
