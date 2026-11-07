@@ -510,12 +510,6 @@ export default class App {
     `
   }
 
-  renderHeader(root) {
-    const root = this.settings ? this.settings.root_path : null
-        </div>
-      </div>
-    `
-  }
 
   renderProjects(root) {
     const projs = Object.entries(this.projects || {})
