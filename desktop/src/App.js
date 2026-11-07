@@ -33,7 +33,7 @@ export default class App {
     this.unlistenFs = null
     this.toastTimer = null
     // Current desktop app version (kept in sync with desktop/tauri.conf.json).
-    this.CURRENT_VERSION = "0.1.2"
+    this.CURRENT_VERSION = "0.2.0"
     // Offline-first release monitor state, persisted in localStorage.
     this.releaseMonitor = {
       checking: false,
@@ -468,7 +468,7 @@ export default class App {
         <div class="onboarding">
           <div class="onboarding-card">
             <div class="onboarding-header">
-              <h2 class="onboarding-title">Nexus<span class="onboarding-accent">Desktop</span></h2>
+              <h2 class="onboarding-title">Nerd<span class="onboarding-accent">Space</span></h2>
               <p class="onboarding-subtitle">Root folder already set</p>
             </div>
             <div class="onboarding-body">
@@ -486,8 +486,8 @@ export default class App {
       <div class="onboarding">
         <div class="onboarding-card">
           <div class="onboarding-header">
-            <div class="onboarding-logo">N<span class="onboarding-accent">D</span></div>
-            <h2 class="onboarding-title">Welcome to Nexus Desktop</h2>
+            <div class="onboarding-logo">N<span class="onboarding-accent">S</span></div>
+            <h2 class="onboarding-title">Welcome to Nerd Space</h2>
             <p class="onboarding-subtitle">A clean, focused workspace for your coding projects.</p>
           </div>
           <div class="onboarding-body">
@@ -505,6 +505,13 @@ export default class App {
           <div class="onboarding-footer">
             <p class="onboarding-footer-text">No terminal. No AI. Just code.</p>
           </div>
+        </div>
+      </div>
+    `
+  }
+
+  renderHeader(root) {
+    const root = this.settings ? this.settings.root_path : null
         </div>
       </div>
     `

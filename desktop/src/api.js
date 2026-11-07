@@ -4,7 +4,7 @@ import { listen } from '@tauri-apps/api/event'
 export const getSettings = () => invoke('get_settings')
 export const selectRootFolder = () => invoke('select_root_folder')
 export const setRootFolder = (rootPath) =>
-  invoke('set_root_folder', { root_path: rootPath })
+  invoke('set_root_folder', { rootPath })
 export const createProject = (rootPath, name) =>
   invoke('create_project', { root_path: rootPath, name })
 export const deleteProject = (path) => invoke('delete_project', { path })
